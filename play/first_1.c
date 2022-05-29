@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 17:41:54 by namohamm          #+#    #+#             */
-/*   Updated: 2022/05/28 18:43:38 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/05/29 10:36:32 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int main()
 void *philos(void *n)
 {
 	int ph = *(int *)n;
-	printf("philo %d wanna eat 😩\n", ph);
-	printf("philo %d tries to pick left chopstick 🥢\n", ph);
+	// printf("philo %d wanna eat 😩\n", ph);
+	// printf("philo %d tries to pick left chopstick 🥢\n", ph);
 	sem_wait(&chopstick[ph]);
 	printf("philo %d pick the left chopstick 🥢\n", ph);
 	printf("philo %d tries to pick right chopstick 🥢\n", ph);
