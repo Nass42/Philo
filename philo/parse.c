@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 10:57:33 by namohamm          #+#    #+#             */
-/*   Updated: 2022/05/29 11:44:06 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/05/30 09:23:58 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,22 @@ int	ft_parse(int ac, char **av, t_arg **arg)
 {
 	if ((ac == 5 || ac == 6) && is_num(av))
 	{
+		(*arg) = (t_arg *)malloc(sizeof(t_arg));
 		(*arg)->philos = ft_atoi(av[1]);
 		(*arg)->die = ft_atoi(av[2]);
 		(*arg)->eat = ft_atoi(av[3]);
 		(*arg)->sleep = ft_atoi(av[4]);
-		(*arg)->m_eat = -1;
+		(*arg)->m_eat = 0;
 		if (ac == 6)
 			(*arg)->m_eat = ft_atoi(av[5]);
 		if ((*arg)->philos <= 0 || (*arg)->die <= 0 || (*arg)->eat <= 0
 			|| (*arg)->sleep <= 0)
+		{
+			free((*arg));
 			return (0);
+		}
 		return (1);
 	}
+	return (0);
 }
 /*****---------------------------END---------------------------*****/
