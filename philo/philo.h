@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 10:58:12 by namohamm          #+#    #+#             */
-/*   Updated: 2022/05/30 17:49:29 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/05/31 12:12:19 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ typedef struct	s_arg
 	int	m_eat;
 	pthread_t	thread[10];
 	pthread_mutex_t	mutex[10];
+	pthread_mutex_t	write_mutex;
+	pthread_mutex_t	time_eat;
+	pthread_mutex_t	time_die;
+	int	time_meat;
 	pthread_mutex_t	mut1;
 	pthread_mutex_t	mut2;
 	pthread_mutex_t	mut3;
@@ -44,5 +48,7 @@ int ft_mutex_destroy(t_arg **arg);
 void ft_mutex_init(t_arg **arg);
 void ft_thread(t_arg **arg);
 void ft_wait_thread(t_arg **arg);
+size_t compute_time();
+void *ft_philo_life(void *arg);
 
 #endif

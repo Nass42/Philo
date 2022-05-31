@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 09:27:15 by namohamm          #+#    #+#             */
-/*   Updated: 2022/05/30 17:51:24 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/05/31 12:11:55 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void ft_thread(t_arg **arg)
 		// 		ft_get_food, *arg))
 		// 	printf("ERROR THREAD\n");
 		//printf("Mahdy\n");
-		pthread_create(&((*arg)->thread[i]), NULL, ft_get_food, *arg);
+		pthread_create(&((*arg)->thread[i]), NULL, ft_philo_life, *arg);
 		i++;
 	}
 }
