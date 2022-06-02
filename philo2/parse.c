@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:29:52 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/02 15:01:51 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/02 16:20:50 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ void	ft_init_philos(t_arg *arg)
 	i = 0;
 	while (i < arg->philos)
 	{
-		arg->philo[i].id = i;
-		arg->philo[i].ate = 0;
-		arg->philo[i].left_chopstick = i;
-		arg->philo[i].right_chopstick = (i + 1) % arg->philos;
-		arg->philo[i].last_eat = 0;
-		arg->philo[i].arg = arg;
+		arg->ph[i].id = i;
+		arg->ph[i].ate = 0;
+		arg->ph[i].left_chopstick = i;
+		arg->ph[i].right_chopstick = (i + 1) % arg->philos;
+		arg->ph[i].last_eat = 0;
+		arg->ph[i].arg = arg;
 		i++;
 	}
 }
@@ -116,7 +116,7 @@ int	ft_parse_init(int ac, char **av, t_arg *arg)
 		arg->die = ft_atoi(av[2]);
 		arg->eat = ft_atoi(av[3]);
 		arg->sleep = ft_atoi(av[4]);
-		arg->well_fed = 0;
+		arg->feds = 0;
 		arg->dead = 0;
 		if (arg->philos <= 1 || arg->die < 0 || arg->eat < 0
 		|| arg->sleep < 0 || arg->philos > 512)

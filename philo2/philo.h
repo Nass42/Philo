@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:28:44 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/02 14:24:32 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/02 16:18:47 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef	struct			s_philo
 	int					right_chopstick;
 	long int			last_eat;
 	pthread_t			thread_id;
-	struct s_arg		*arg;
+	struct s_arg				*arg;
 }						t_philo;
 
 typedef struct			s_arg
@@ -40,15 +40,17 @@ typedef struct			s_arg
 	int					sleep;
 	int					must_eat;
 	int					dead;
-	int					well_fed;
+	int					feds;
 	size_t				start_time;
 	pthread_mutex_t		checking;
 	pthread_mutex_t		mut_write;
 	pthread_mutex_t		chopstick[512];
-	t_philo				philo[512];
+	t_philo		ph[512];
 }						t_arg;
 
-
-int	ft_parse_init(int ac, char **av, t_arg *arg);
-
+int		ft_parse_init(int ac, char **av, t_arg *arg);
+size_t	ft_current_time();
+size_t	ft_elapsed_time(size_t prev, size_t current);
+void	ft_write_status(t_arg *arg, int id, char *string);
+int		ft_threads(t_arg *arg);
 #endif
