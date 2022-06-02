@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 09:27:15 by namohamm          #+#    #+#             */
-/*   Updated: 2022/05/31 12:11:55 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/02 11:24:57 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,57 +25,30 @@ size_t compute_time()
 	
 	gettimeofday(&currrent_time, NULL);
 	time = (currrent_time.tv_sec * 1000) + (currrent_time.tv_usec / 1000);
-	// time = (currrent_time.tv_usec / 1000);
+	return (time);
 }
 /****------------------------END--------------------------****/
+void ft_write_status(int id, char *str, size_t time)
+{
+	printf("%ld Philo[%d] %s\n", time, id, str);
+}
 /****---------------------FT_GOOD_FOOD-------------------****/
 void *ft_get_food(void *arg)
 {
 	t_arg	*ph;
 	int		inc;
-	// int		res_lock;
+	int		id;
 	size_t time;
-	size_t time2;
-	// struct timeval currrent_time;
-	// gettimeofday(&currrent_time, NULL);
-	// time_stamp = currrent_time.tv_usec / 1000;
-	time2 = compute_time();
 	ph = (t_arg *)(arg);
 	inc = ph->inc;
-
+	ph->id = inc + 1;
+		// pthread_mutex_lock(&(ph->mut_time_ms));
+		time = compute_time() - ph->time_ms;
+		// pthread_mutex_unlock(&(ph->mut_time_ms));
 	while (1)
     {
-		pthread_mutex_lock(&(ph->mut5));
-		time = compute_time() - time2;
-		pthread_mutex_unlock(&(ph->mut5));
-	
-    	if (!pthread_mutex_lock(&(ph->mutex[inc])) &&
-    		 !pthread_mutex_lock(&(ph->mutex[(inc + 1) % ph->philos])))
-		{
-			pthread_mutex_lock(&(ph->mut1));
-			printf("%ld %d has taken a fork\n", time, inc + 1);
-			pthread_mutex_unlock(&(ph->mut1));
-			// printf("%ld %d has taken a fork\n", time, inc + 1);
-		}
-		
-			pthread_mutex_lock(&(ph->mut2));
-		printf("%ld %d   is eating... 🍔\n", time, inc + 1);
-			pthread_mutex_unlock(&(ph->mut2));
-		usleep(ph->eat * 1000);
-		// printf("eat = %d\n", ph->eat);
-			pthread_mutex_lock(&(ph->mut3));
-		printf("%ld %d is sleeping... 😴\n", time, inc + 1);
-			pthread_mutex_unlock(&(ph->mut3));
-		usleep(ph->sleep * 1000);
-    	pthread_mutex_unlock(&(ph->mutex[(inc + 1) % ph->philos]));
-    	pthread_mutex_unlock(&(ph->mutex[inc]));
-	
-			pthread_mutex_lock(&(ph->mut4));
-		printf("%ld %d is thinking... 🤓\n", time, inc + 1);
-			pthread_mutex_unlock(&(ph->mut4));
-		pthread_mutex_unlock(&(ph->mut5));
-			
-		// pthread_exit(0);
+		ft_write_status(ph->id, "hello", time);
+		sleep(1);
 	}
 }
 /****------------------------END--------------------------****/
@@ -114,18 +87,20 @@ void ft_mutex_init(t_arg **arg)
 void ft_thread(t_arg **arg)
 {
 	int	i;
-
+	int		inc;
+	size_t time;
+	
 	i = 0;
-	//(*arg)->inc = 12;
 	while (i < (*arg)->philos)
 	{
+	(*arg)->time_ms = compute_time();
 		//printf("the memory of args is %p\n", *arg);
 		(*arg)->inc = i;
 		// if (!pthread_create(&((*arg)->thread[i]), NULL,
 		// 		ft_get_food, *arg))
 		// 	printf("ERROR THREAD\n");
 		//printf("Mahdy\n");
-		pthread_create(&((*arg)->thread[i]), NULL, ft_philo_life, *arg);
+		pthread_create(&((*arg)->thread[i]), NULL, ft_get_food, *arg);
 		i++;
 	}
 }
