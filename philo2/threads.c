@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:23:09 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/03 16:07:46 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:25:38 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	philo_eats(t_philo *ph)
 	ft_write_status(arg, ph->id, "is eating ...  🍔");
 	ph->last_eat = ft_current_time();
 	pthread_mutex_unlock(&(arg->checking));
-	// usleep(arg->eat * 1000);
+	usleep(arg->eat * 1000);
 	pthread_mutex_lock(&(arg->mut_eat));
 	(ph->ate)++;
-	usleep(arg->eat * 1000);
+	// usleep(arg->eat * 1000);
 	pthread_mutex_unlock(&(arg->mut_eat));
 	pthread_mutex_unlock(&(arg->chopstick[ph->left_chopstick]));
 	pthread_mutex_unlock(&(arg->chopstick[ph->right_chopstick]));
@@ -53,21 +53,23 @@ void	*ft_philo_life(void *philo)
 
 	i = 0;
 	ph = (t_philo *)philo;
-	// printf("id = %d\n", ph->id);
 	arg = ph->arg;
 	if (ph->id % 3)
 		usleep(15000);
-	while (!(arg->dead))
+	while (!(arg->dead) && !(arg->feds))
 	{
+		if (arg->feds)
+			break ;
 		philo_eats(philo);
 		pthread_mutex_lock(&(arg->mut_eat));
-		usleep(arg->eat * 825);
+		usleep(arg->eat * 1000);
 		pthread_mutex_unlock(&(arg->mut_eat));
 		if (arg->feds)
 			break ;
 		ft_write_status(arg, ph->id, "is sleeping... 😴");
 		usleep(arg->sleep * 1000);
-		// 
+		if (arg->feds)
+			break ;
 		ft_write_status(arg, ph->id, "is thinking... 🧐");
 		i++;
 	}
@@ -129,8 +131,8 @@ void	ft_death_feds(t_arg *arg, t_philo *ph)
 			i++;
 		if (i == arg->philos)
 		{
-			printf("Everyone ate at least %d times 🦧\n", arg->must_eat);
 			arg->feds = 1;
+			printf("Everyone ate at least %d times 🦧\n", arg->must_eat);
 		}
 	}
 }
