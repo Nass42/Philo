@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:23:09 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/03 17:25:38 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:35:02 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,19 @@ void	philo_eats(t_philo *ph)
 	t_arg *arg;
 
 	arg = ph->arg;
-	// pthread_mutex_lock(&(arg->chopstick[ph->left_chopstick]));
-	// ft_write_status(arg, ph->id, "has taken a fork");
-	// pthread_mutex_lock(&(arg->chopstick[ph->right_chopstick]));
 	if (!pthread_mutex_lock(&(arg->chopstick[ph->left_chopstick])) 
 	&& !pthread_mutex_lock(&(arg->chopstick[ph->right_chopstick])))
 	{
-		ft_write_status(arg, ph->id, "has taken a fork");
-		ft_write_status(arg, ph->id, "has taken a fork");
+		ft_write_status(arg, ph->id, "has taken a  fork  🥢");
+		ft_write_status(arg, ph->id, "has taken a  fork  🥢");
 	}
-	// ft_write_status(arg, ph->id, "has taken a fork");
 	pthread_mutex_lock(&(arg->checking));
-	ft_write_status(arg, ph->id, "is eating ...  🍔");
+	ft_write_status(arg, ph->id, "is  eating  ...    🍔");
 	ph->last_eat = ft_current_time();
 	pthread_mutex_unlock(&(arg->checking));
 	usleep(arg->eat * 1000);
 	pthread_mutex_lock(&(arg->mut_eat));
 	(ph->ate)++;
-	// usleep(arg->eat * 1000);
 	pthread_mutex_unlock(&(arg->mut_eat));
 	pthread_mutex_unlock(&(arg->chopstick[ph->left_chopstick]));
 	pthread_mutex_unlock(&(arg->chopstick[ph->right_chopstick]));
@@ -66,11 +61,11 @@ void	*ft_philo_life(void *philo)
 		pthread_mutex_unlock(&(arg->mut_eat));
 		if (arg->feds)
 			break ;
-		ft_write_status(arg, ph->id, "is sleeping... 😴");
+		ft_write_status(arg, ph->id, "is  sleeping  ...  😴");
 		usleep(arg->sleep * 1000);
 		if (arg->feds)
 			break ;
-		ft_write_status(arg, ph->id, "is thinking... 🧐");
+		ft_write_status(arg, ph->id, "is  thinking  ...  🧐");
 		i++;
 	}
 	return (NULL);
