@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:28:33 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/02 16:27:35 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/03 16:09:12 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		main(int ac, char **av)
 		printf("ERROR: WRONG ARGS!\n");
 		return (0);
 	}
-	printf("philos = %d\n", arg.philos);
+	// printf("philos = %d\n", arg.philos);
 	if (ft_threads(&arg))
 	{
 		printf("ERROR: CAN'T CREATE PHILOS!");

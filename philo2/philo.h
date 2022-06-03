@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:28:44 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/02 16:18:47 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:32:15 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ typedef struct			s_arg
 	size_t				start_time;
 	pthread_mutex_t		checking;
 	pthread_mutex_t		mut_write;
+	pthread_mutex_t		mut_eat;
 	pthread_mutex_t		chopstick[512];
-	t_philo		ph[512];
+	t_philo				ph[512];
 }						t_arg;
 
 int		ft_parse_init(int ac, char **av, t_arg *arg);
