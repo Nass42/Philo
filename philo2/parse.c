@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:29:52 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/02 16:20:50 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/03 18:23:28 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	ft_parse_init(int ac, char **av, t_arg *arg)
 		arg->sleep = ft_atoi(av[4]);
 		arg->feds = 0;
 		arg->dead = 0;
-		if (arg->philos <= 1 || arg->die < 0 || arg->eat < 0
+		if (arg->philos < 1 || arg->die < 0 || arg->eat < 0
 		|| arg->sleep < 0 || arg->philos > 512)
 		return (1);
 		if (av[5])
@@ -129,6 +129,11 @@ int	ft_parse_init(int ac, char **av, t_arg *arg)
 		}
 		else
 			arg->must_eat = -1;
+		// if (arg->philos == 1)
+		// {
+		// 	printf("⏳ %d 1 died 💀", arg->eat);
+		// 	return (2);
+		// }
 		ft_init_mutex(arg);
 		ft_init_philos(arg);
 		return (1);
