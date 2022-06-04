@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:23:09 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/03 17:35:02 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/04 15:42:54 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,24 @@ void	philo_eats(t_philo *ph)
 	t_arg *arg;
 
 	arg = ph->arg;
+	if (arg->feds)
+		return ;
 	if (!pthread_mutex_lock(&(arg->chopstick[ph->left_chopstick])) 
 	&& !pthread_mutex_lock(&(arg->chopstick[ph->right_chopstick])))
 	{
+		if (arg->feds)
+			return ;
 		ft_write_status(arg, ph->id, "has taken a  fork  🥢");
 		ft_write_status(arg, ph->id, "has taken a  fork  🥢");
 	}
+	if (arg->feds)
+		return ;
 	pthread_mutex_lock(&(arg->checking));
 	ft_write_status(arg, ph->id, "is  eating  ...    🍔");
 	ph->last_eat = ft_current_time();
 	pthread_mutex_unlock(&(arg->checking));
 	usleep(arg->eat * 1000);
-	pthread_mutex_lock(&(arg->mut_eat));
 	(ph->ate)++;
-	pthread_mutex_unlock(&(arg->mut_eat));
 	pthread_mutex_unlock(&(arg->chopstick[ph->left_chopstick]));
 	pthread_mutex_unlock(&(arg->chopstick[ph->right_chopstick]));
 }
@@ -49,16 +53,12 @@ void	*ft_philo_life(void *philo)
 	i = 0;
 	ph = (t_philo *)philo;
 	arg = ph->arg;
-	if (ph->id % 3)
-		usleep(15000);
 	while (!(arg->dead) && !(arg->feds))
 	{
 		if (arg->feds)
 			break ;
 		philo_eats(philo);
-		pthread_mutex_lock(&(arg->mut_eat));
-		usleep(arg->eat * 1000);
-		pthread_mutex_unlock(&(arg->mut_eat));
+		// usleep(arg->eat * 1000);
 		if (arg->feds)
 			break ;
 		ft_write_status(arg, ph->id, "is  sleeping  ...  😴");
@@ -98,12 +98,6 @@ void	ft_death_feds(t_arg *arg, t_philo *ph)
 {
 	int i;
 
-	int copy_dead;
-	int copy_fed;
-
-	copy_dead = arg->dead;
-	copy_fed = arg->feds;
-	
 	while (!(arg->feds))
 	{
 		i = 0;
@@ -112,7 +106,7 @@ void	ft_death_feds(t_arg *arg, t_philo *ph)
 			pthread_mutex_lock(&(arg->checking));
 			if (ft_elapsed_time(ph[i].last_eat, ft_current_time()) > arg->die)
 			{
-				ft_write_status(arg, i, "died");
+				ft_write_status(arg, i, "died 💀");
 				arg->dead = 1;
 			}
 			pthread_mutex_unlock(&(arg->checking));
@@ -140,6 +134,11 @@ int		ft_threads(t_arg *arg)
 
 	i = 0;
 	ph = arg->ph;
+	if (arg->philos == 1)
+	{
+		printf("⏳ 0 1 died 💀\n");
+		return (0);
+	}
 	arg->start_time = ft_current_time();
 	while (i < arg->philos)
 	{
