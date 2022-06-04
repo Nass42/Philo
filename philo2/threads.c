@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:23:09 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/04 15:42:54 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/04 15:49:46 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	*ft_philo_life(void *philo)
 		if (arg->feds)
 			break ;
 		philo_eats(philo);
-		// usleep(arg->eat * 1000);
 		if (arg->feds)
 			break ;
 		ft_write_status(arg, ph->id, "is  sleeping  ...  😴");
