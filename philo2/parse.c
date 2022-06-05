@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:29:52 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/04 15:41:09 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/05 00:16:17 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,33 +24,8 @@ size_t	ft_strlen(const char *str)
 }
 /*****----------------------------END-----------------------------*****/
 
-/*****---------------------------ATOI-----------------------------*****/
-int	ft_atoi(const char *str)
-{
-	unsigned long	result;
-	int				sign;
-	int				i;
-
-	result = 0;
-	sign = 1;
-	i = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-		if (str[i++] == '-')
-			sign *= -1;
-	while (str[i] >= '0' && str[i] <= '9')
-		result = result * 10 + str[i++] - '0';
-	if (result > 2147483647 && sign == 1)
-		return (-1);
-	if (result > 2147483648 && sign == -1)
-		return (0);
-	return (result * sign);
-}
-/*****----------------------------END---------------------------*****/
-
 /*****---------------------EVERYTHING IS NUM ?------------------*****/
-int is_num(char **av)
+int	is_num(char **av)
 {
 	int	i;
 	int	j;
@@ -91,7 +66,7 @@ void	ft_init_mutex(t_arg *arg)
 /*****--------------------PARSING-AND-INIT----------------------*****/
 void	ft_init_philos(t_arg *arg)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < arg->philos)
@@ -119,13 +94,8 @@ int	ft_parse_init(int ac, char **av, t_arg *arg)
 		arg->feds = 0;
 		arg->dead = 0;
 		if (arg->philos < 1 || arg->die < 0 || arg->eat < 0
-		|| arg->sleep < 0 || arg->philos > 512)
+			|| arg->sleep < 0 || arg->philos > 512)
 			return (1);
-		// if (arg->philos == 1)
-		// {
-		// 	printf("⏳ 0 1 died 💀\n");
-		// 	return (1);
-		// }
 		if (av[5])
 		{
 			arg->must_eat = ft_atoi(av[5]);
@@ -134,12 +104,10 @@ int	ft_parse_init(int ac, char **av, t_arg *arg)
 		}
 		else
 			arg->must_eat = -1;
-		
 		ft_init_mutex(arg);
 		ft_init_philos(arg);
 		return (1);
 	}
-	
 	return (0);
 }
 /*****---------------------------END---------------------------*****/

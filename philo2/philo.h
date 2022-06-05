@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:28:44 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/03 15:32:15 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/05 00:56:06 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-struct s_arg;
+struct	s_arg;
 
-typedef	struct			s_philo
+typedef struct s_philo
 {
 	int					id;
 	int					ate;
@@ -29,10 +29,10 @@ typedef	struct			s_philo
 	int					right_chopstick;
 	long int			last_eat;
 	pthread_t			thread_id;
-	struct s_arg				*arg;
+	struct s_arg		*arg;
 }						t_philo;
 
-typedef struct			s_arg
+typedef struct s_arg
 {
 	int					philos;
 	int					die;
@@ -50,8 +50,11 @@ typedef struct			s_arg
 }						t_arg;
 
 int		ft_parse_init(int ac, char **av, t_arg *arg);
-size_t	ft_current_time();
+size_t	ft_current_time(void);
 size_t	ft_elapsed_time(size_t prev, size_t current);
 void	ft_write_status(t_arg *arg, int id, char *string);
 int		ft_threads(t_arg *arg);
+int		ft_atoi(const char *str);
+void	philo_eats(t_philo *ph);
+void	*ft_philo_life(void *philo);
 #endif

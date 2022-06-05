@@ -6,13 +6,13 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:28:33 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/03 16:09:12 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/04 23:59:29 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int		main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_arg	arg;
 	int		ret;
@@ -27,7 +27,11 @@ int		main(int ac, char **av)
 		printf("ERROR: WRONG ARGS!\n");
 		return (0);
 	}
-	// printf("philos = %d\n", arg.philos);
+	if (arg.philos > 200)
+	{
+		printf("ERROR: PHILOSOPHERS > 200\n");
+		return (0);
+	}
 	if (ft_threads(&arg))
 	{
 		printf("ERROR: CAN'T CREATE PHILOS!");
