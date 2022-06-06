@@ -1,1 +1,1 @@
-cc main.c     parse.c    philo.h    threads.c  utils.c
+cc main.c     parse.c    philo.h    threads.c  utils.c philo_life.c

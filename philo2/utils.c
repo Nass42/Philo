@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:08:12 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/05 00:13:13 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:40:45 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,38 @@ void	ft_write_status(t_arg *arg, int id, char *string)
 	pthread_mutex_lock(&(arg->mut_write));
 	if (!(arg->dead))
 	{
-		printf("⏳ %zu ", ft_current_time() - arg->start_time);
-		printf("%d ", id + 1);
-		printf("%s\n", string);
+		printf(purple"⏳ %zu ", ft_current_time() - arg->start_time);
+		printf(yellow"%d ", id + 1);
+		printf(blue"%s\n", string);
 	}
 	pthread_mutex_unlock(&(arg->mut_write));
 	return ;
 }
 /****------------------------END--------------------------****/
+// void		ft_usleep(size_t time, t_arg *arg)
+// {
+// 	size_t i;
+
+// 	i = ft_current_time();
+// 	while (!(arg->dead))
+// 	{
+// 		if (ft_elapsed_time(i, ft_current_time()) >= time)
+// 			break ;
+// 		usleep(50);
+// 	}
+// }
+/****------------------------END--------------------------****/
+
+void		ft_usleep(size_t time, t_arg *arg)
+{
+	size_t i;
+
+	i = ft_current_time();
+	while (!(arg->dead))
+	{
+		if (ft_elapsed_time(i, ft_current_time()) >= time)
+			break ;
+		usleep(100);
+	}
+	
+}

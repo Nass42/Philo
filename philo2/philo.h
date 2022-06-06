@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:28:44 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/05 00:56:06 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:37:47 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <pthread.h>
+
+# define black "\033[0;30m"
+# define red "\033[0;31m"
+# define green "\033[0;32m"
+# define yellow "\033[0;33m"
+# define blue "\033[0;34m"
+# define purple "\033[0;35m"
+# define cyan "\033[0;36m"
+# define white "\033[0;37m"
 
 struct	s_arg;
 
@@ -57,4 +66,5 @@ int		ft_threads(t_arg *arg);
 int		ft_atoi(const char *str);
 void	philo_eats(t_philo *ph);
 void	*ft_philo_life(void *philo);
+void	ft_usleep(size_t time, t_arg *arg);
 #endif
