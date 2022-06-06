@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:23:09 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/05 00:52:08 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/06 17:04:37 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ void	check_feds(int i, t_arg *arg)
 {
 	if (i == arg->philos)
 	{
+		pthread_mutex_lock(&(arg->mut_read));
 		arg->feds = 1;
-		printf("Everyone ate at least %d times 🦧\n", arg->must_eat);
+		pthread_mutex_unlock(&(arg->mut_read));
+		// printf("Everyone ate at least %d times 🦧\n", arg->must_eat);
 	}
 }
 
@@ -65,9 +67,11 @@ void	ft_death_feds(t_arg *arg, t_philo *ph)
 		if (arg->dead)
 			break ;
 		i = 0;
+		pthread_mutex_lock(&(arg->mut_ate));
 		while (arg->must_eat != -1 && i < arg->philos
 			&& ph[i].ate >= arg->must_eat)
 			i++;
+		pthread_mutex_unlock(&(arg->mut_ate));
 		check_feds(i, arg);
 	}
 }
@@ -90,7 +94,9 @@ int	ft_threads(t_arg *arg)
 	while (i < arg->philos)
 	{
 		pthread_create(&(ph[i].thread_id), NULL, ft_philo_life, &(ph[i]));
+		pthread_mutex_lock(&(arg->mut_last_eat));
 		ph[i].last_eat = ft_current_time();
+		pthread_mutex_unlock(&(arg->mut_last_eat));
 		i++;
 	}
 	ft_death_feds(arg, arg->ph);

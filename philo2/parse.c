@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:29:52 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/05 00:16:17 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:50:29 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ void	ft_init_mutex(t_arg *arg)
 	}
 	pthread_mutex_init(&(arg->mut_write), NULL);
 	pthread_mutex_init(&(arg->checking), NULL);
+	pthread_mutex_init(&(arg->mut_read), NULL);
+	pthread_mutex_init(&(arg->mut_last_eat), NULL);
+	pthread_mutex_init(&(arg->mut_ate), NULL);
 }
 /*****---------------------------END----------------------------*****/
 

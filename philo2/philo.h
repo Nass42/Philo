@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:28:44 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/05 18:37:47 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:50:12 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ typedef struct s_arg
 	pthread_mutex_t		checking;
 	pthread_mutex_t		mut_write;
 	pthread_mutex_t		mut_eat;
+	pthread_mutex_t		mut_read;
+	pthread_mutex_t		mut_last_eat;
+	pthread_mutex_t		mut_ate;
 	pthread_mutex_t		chopstick[512];
 	t_philo				ph[512];
 }						t_arg;
