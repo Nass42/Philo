@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 11:28:44 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/06 15:50:12 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/06 19:08:23 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,12 @@ typedef struct s_arg
 	pthread_mutex_t		mut_read;
 	pthread_mutex_t		mut_last_eat;
 	pthread_mutex_t		mut_ate;
+	pthread_mutex_t		mut_dead;
 	pthread_mutex_t		chopstick[512];
 	t_philo				ph[512];
 }						t_arg;
 
+size_t	ft_strlen(const char *str);
 int		ft_parse_init(int ac, char **av, t_arg *arg);
 size_t	ft_current_time(void);
 size_t	ft_elapsed_time(size_t prev, size_t current);

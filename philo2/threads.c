@@ -6,13 +6,12 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:23:09 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/06 17:04:37 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/06 19:43:21 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/***---------------------TIME TO ENJOY------------------***/
 void	ft_wait_destroy(t_arg *arg, t_philo *ph)
 {
 	int	i;
@@ -31,7 +30,6 @@ void	ft_wait_destroy(t_arg *arg, t_philo *ph)
 	}
 	pthread_mutex_destroy(&(arg->mut_write));
 }
-/***-------------END (EVERYTHING HAS AN END-----------***/
 
 void	check_feds(int i, t_arg *arg)
 {
@@ -40,11 +38,9 @@ void	check_feds(int i, t_arg *arg)
 		pthread_mutex_lock(&(arg->mut_read));
 		arg->feds = 1;
 		pthread_mutex_unlock(&(arg->mut_read));
-		// printf("Everyone ate at least %d times 🦧\n", arg->must_eat);
 	}
 }
 
-/***---------------------TIME TO DIE------------------***/
 void	ft_death_feds(t_arg *arg, t_philo *ph)
 {
 	int	i;
@@ -58,7 +54,9 @@ void	ft_death_feds(t_arg *arg, t_philo *ph)
 			if (ft_elapsed_time(ph[i].last_eat, ft_current_time()) > arg->die)
 			{
 				ft_write_status(arg, i, "died 💀");
+				pthread_mutex_lock(&(arg->mut_dead));
 				arg->dead = 1;
+				pthread_mutex_unlock(&(arg->mut_dead));
 			}
 			pthread_mutex_unlock(&(arg->checking));
 			usleep(100);
@@ -75,9 +73,7 @@ void	ft_death_feds(t_arg *arg, t_philo *ph)
 		check_feds(i, arg);
 	}
 }
-/***-------------END (EVERYTHING HAS AN END-----------***/
 
-/***----------------CREATION OF THREADS-----------------------***/
 int	ft_threads(t_arg *arg)
 {
 	int		i;
@@ -103,4 +99,3 @@ int	ft_threads(t_arg *arg)
 	ft_wait_destroy(arg, ph);
 	return (0);
 }
-/***-------------END (EVERYTHING HAS AN END-----------***/

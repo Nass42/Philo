@@ -6,11 +6,11 @@
 #    By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/20 22:31:29 by namohamm          #+#    #+#              #
-#    Updated: 2022/05/24 08:06:26 by namohamm         ###   ########.fr        #
+#    Updated: 2022/06/06 19:51:33 by namohamm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= push_swap
+NAME	= philo
 CC      = gcc
 CFLAGS   = -Wall -Wextra -Werror -g
 

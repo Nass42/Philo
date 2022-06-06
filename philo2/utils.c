@@ -6,7 +6,7 @@
 /*   By: namohamm <namohamm@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 15:08:12 by namohamm          #+#    #+#             */
-/*   Updated: 2022/06/06 16:25:41 by namohamm         ###   ########.fr       */
+/*   Updated: 2022/06/06 19:46:51 by namohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,6 @@
 
 /*****---------------------------ATOI------------------*****/
 /*****---------------------------ATOI------------------*****/
-
-size_t	ft_strlen(const char *str);
-// {
-// 	int	n;
-
-// 	n = 0;
-// 	while (str[n] != '\0')
-// 		n++;
-// 	return (n);
-// }
 
 void	ft_putchar(char c, int fd)
 {
@@ -97,9 +87,7 @@ size_t	ft_current_time(void)
 	time = (currrent.tv_sec * 1000) + (currrent.tv_usec / 1000);
 	return (time);
 }
-/****------------------------END--------------------------****/
 
-/****---------------------ELAPSED TIME--------------------****/
 size_t	ft_elapsed_time(size_t prev, size_t current)
 {
 	size_t	time;
@@ -108,26 +96,16 @@ size_t	ft_elapsed_time(size_t prev, size_t current)
 	time = current - prev;
 	return (time);
 }
-/****------------------------END--------------------------****/
 
-/****---------------------ELAPSED TIME--------------------****/
-// void	ft_write_status(t_arg *arg, int id, char *string)
-// {
-// 	pthread_mutex_lock(&(arg->mut_write));
-// 	if (!(arg->dead))
-// 	{
-// 		printf(purple"⏳ %zu ", ft_current_time() - arg->start_time);
-// 		printf(yellow"%d ", id + 1);
-// 		printf(blue"%s\n", string);
-// 	}
-// 	pthread_mutex_unlock(&(arg->mut_write));
-// 	return ;
-// }
 void	ft_write_status(t_arg *arg, int id, char *string)
 {
-	size_t n;
+	size_t	n;
+	int		q;
+	pthread_mutex_lock(&(arg->mut_dead));
+	q = arg->dead;
+	pthread_mutex_unlock(&(arg->mut_dead));
 	pthread_mutex_lock(&(arg->mut_write));
-	if (!(arg->dead))
+	if (!q)
 	{
 		n = ft_current_time() - arg->start_time;
 		ft_putnbr_fd(n, 1);
@@ -140,31 +118,22 @@ void	ft_write_status(t_arg *arg, int id, char *string)
 	pthread_mutex_unlock(&(arg->mut_write));
 	return ;
 }
-/****------------------------END--------------------------****/
-// void		ft_usleep(size_t time, t_arg *arg)
-// {
-// 	size_t i;
-
-// 	i = ft_current_time();
-// 	while (!(arg->dead))
-// 	{
-// 		if (ft_elapsed_time(i, ft_current_time()) >= time)
-// 			break ;
-// 		usleep(50);
-// 	}
-// }
-/****------------------------END--------------------------****/
 
 void		ft_usleep(size_t time, t_arg *arg)
 {
 	size_t i;
+	int		d;
+	
 
+	pthread_mutex_lock(&(arg->mut_dead));
+	d = arg->dead;
+	pthread_mutex_unlock(&(arg->mut_dead));
 	i = ft_current_time();
-	while (!(arg->dead))
+	while (!d)
 	{
 		if (ft_elapsed_time(i, ft_current_time()) >= time)
 			break ;
 		usleep(100);
 	}
-	
+
 }
